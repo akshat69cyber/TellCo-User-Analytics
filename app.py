@@ -3,25 +3,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# -------------------------------
-# PAGE CONFIG
-# -------------------------------
 st.set_page_config(
     page_title="TellCo User Analytics Dashboard",
     layout="wide"
 )
 
-# -------------------------------
-# LOAD DATA
-# -------------------------------
+
 df = pd.read_excel(r"C:\Users\Asus\Downloads\telcom_data (2).xlsx")
 
 # Handle missing values
 df = df.fillna(df.mean(numeric_only=True))
 
-# -------------------------------
-# TITLE & DESCRIPTION
-# -------------------------------
+
 st.title("TellCo User Analytics Dashboard")
 
 st.markdown("""
@@ -33,9 +26,7 @@ It covers:
 - User Satisfaction
 """)
 
-# -------------------------------
-# USER OVERVIEW SECTION
-# -------------------------------
+
 st.header("User Overview Analysis")
 
 col1, col2 = st.columns(2)
@@ -50,9 +41,7 @@ with col2:
     top_3_manufacturers = df['Handset Manufacturer'].value_counts().head(3)
     st.bar_chart(top_3_manufacturers)
 
-# -------------------------------
-# USER ENGAGEMENT SECTION
-# -------------------------------
+
 st.header("User Engagement Analysis")
 
 user_agg = df.groupby('MSISDN').agg(
@@ -69,9 +58,7 @@ st.dataframe(
     user_agg.sort_values('total_data', ascending=False).head(10)
 )
 
-# -------------------------------
-# USER EXPERIENCE SECTION
-# -------------------------------
+
 st.header("User Experience Analysis")
 
 experience_agg = df.groupby('MSISDN').agg(
@@ -92,9 +79,7 @@ ax.set_xlabel("Average Throughput (kbps)")
 ax.set_ylabel("Number of Users")
 st.pyplot(fig)
 
-# -------------------------------
-# USER SATISFACTION SECTION
-# -------------------------------
+
 st.header("User Satisfaction Summary")
 
 st.markdown("""
@@ -106,9 +91,7 @@ Users who are both **highly engaged** and have **good network quality**
 are the most satisfied customers.
 """)
 
-# -------------------------------
-# FINAL INSIGHT
-# -------------------------------
+
 st.header("Final Business Insight")
 
 st.success("""
